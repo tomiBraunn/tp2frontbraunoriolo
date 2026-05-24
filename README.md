@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Encuestas Serverless
 
-## Getting Started
+Aplicación web de encuestas en vivo construida con **Next.js**, **Supabase** y **Vercel**.
 
-First, run the development server:
+## Stack Tecnológico
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+| Capa | Tecnología |
+|------|-----------|
+| Frontend | React 19 + Next.js 16 (Turbopack) |
+| Estilos | Tailwind CSS |
+| Autenticación | Supabase Auth |
+| Base de datos | Supabase (PostgreSQL) |
+| Despliegue | Vercel |
+
+## Funcionalidades
+
+- Registro, inicio y cierre de sesión de usuarios
+- Creación de encuestas con opciones personalizadas
+- Votación en encuestas (un voto por usuario por encuesta)
+- Visualización de resultados en tiempo real con barras de progreso
+- Dashboard con estadísticas del usuario
+- Eliminación de encuestas propias
+
+## Estructura del Repositorio
+
+```
+main         → Rama principal (funcional y desplegada)
+develop      → Rama de integración
+alumno1/frontend → Geraldine - Frontend (páginas y componentes)
+alumno2/backend  → Tomas - Backend (acciones server, API, Supabase)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Autores
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Tomas Braun** ([tomibraunn](https://github.com/tomibraunn)) — Backend (Supabase schema, server actions, API routes)
+- **Geraldine** (49374998@est.ort.edu.ar) — Frontend (páginas, componentes, layout)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Primeros pasos
 
-## Learn More
+```bash
+# Clonar
+git clone https://github.com/tomibraunn/tp2frontbraunoriolo
+cd tp2frontbraunoriolo
 
-To learn more about Next.js, take a look at the following resources:
+# Instalar dependencias
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Configurar variables de entorno
+cp .env.example .env.local
+# Completar NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Ejecutar migración en Supabase SQL Editor
+# (ver supabase/migration.sql)
 
-## Deploy on Vercel
+# Iniciar desarrollo
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Despliegue
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Conectá el repositorio a [Vercel](https://vercel.com) y configurá las variables de entorno. El deploy es automático en cada push a `main`.
