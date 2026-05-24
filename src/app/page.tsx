@@ -3,9 +3,9 @@ import Link from "next/link"
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] px-4">
-      <h1 className="text-4xl font-bold text-indigo-600 mb-4">Encuestas Serverless</h1>
+      <h1 className="text-4xl font-bold text-indigo-600 mb-4">Gestor de Proyectos</h1>
       <p className="text-gray-500 text-lg mb-8 text-center max-w-md">
-        Creá encuestas, votá y mirá los resultados en tiempo real.
+        Creá, editá y administrá tus proyectos desde un solo lugar.
         Construido con Next.js + Supabase + Vercel.
       </p>
       <div className="flex gap-4">
@@ -22,8 +22,8 @@ export default function Home() {
           Iniciar sesión
         </Link>
       </div>
-      <Link href="/polls" className="mt-6 text-sm text-gray-400 hover:text-gray-600">
-        Ver encuestas públicas
+      <Link href="/projects" className="mt-6 text-sm text-gray-400 hover:text-gray-600">
+        Ver proyectos públicos
       </Link>
     </div>
   )

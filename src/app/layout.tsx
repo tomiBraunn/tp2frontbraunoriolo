@@ -1,18 +1,33 @@
 import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/Navbar"
 
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+})
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+})
+
 export const metadata: Metadata = {
-  title: "Encuestas - TP2 Serverless",
-  description: "Sistema de encuestas serverless con Next.js y Supabase",
+  title: "Gestor de Proyectos",
+  description: "Aplicación serverless para gestión de proyectos",
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
-    <html lang="es" className="h-full">
-      <body className="min-h-full flex flex-col">
+    <html lang="es">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main>{children}</main>
       </body>
     </html>
   )

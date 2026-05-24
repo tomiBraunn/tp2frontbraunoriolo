@@ -26,7 +26,7 @@ export default function Navbar() {
     <nav className="bg-white shadow-sm border-b">
       <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg text-indigo-600">
-          Encuestas
+          Proyectos
         </Link>
         <div className="flex items-center gap-4">
           {user ? (
@@ -34,11 +34,11 @@ export default function Navbar() {
               <Link href="/dashboard" className="text-sm text-gray-600 hover:text-gray-900">
                 Dashboard
               </Link>
-              <Link href="/polls" className="text-sm text-gray-600 hover:text-gray-900">
-                Encuestas
+              <Link href="/projects" className="text-sm text-gray-600 hover:text-gray-900">
+                Proyectos
               </Link>
-              <Link href="/polls/create" className="text-sm bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700">
-                Nueva
+              <Link href="/projects/create" className="text-sm bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700">
+                Nuevo
               </Link>
               <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700">
                 Cerrar sesión
