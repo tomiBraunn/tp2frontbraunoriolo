@@ -9,13 +9,14 @@ import type { User } from '@supabase/supabase-js'
 export default function Navbar() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
-  const supabase = createClient()
 
   useEffect(() => {
+    const supabase = createClient()
     supabase.auth.getUser().then(({ data }) => setUser(data.user))
   }, [])
 
   const handleLogout = async () => {
+    const supabase = createClient()
     await supabase.auth.signOut()
     setUser(null)
     router.push('/login')
