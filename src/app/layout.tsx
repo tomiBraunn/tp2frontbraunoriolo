@@ -1,31 +1,35 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Playfair_Display, Source_Serif_4, PT_Mono } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/Navbar"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const display = Playfair_Display({
   subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700", "800"],
 })
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const primary = Source_Serif_4({
   subsets: ["latin"],
+  variable: "--font-primary",
+  weight: ["300", "400", "600", "700"],
+})
+
+const mono = PT_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400"],
 })
 
 export const metadata: Metadata = {
-  title: "Gestor de Proyectos",
-  description: "Aplicación serverless para gestión de proyectos",
+  title: "Tinta — Encuestas en Vivo",
+  description: "Creá, votá y seguí resultados en tiempo real",
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
+    <html lang="es" className={`${display.variable} ${primary.variable} ${mono.variable}`}>
+      <body className="antialiased min-h-screen">
         <Navbar />
         <main>{children}</main>
       </body>

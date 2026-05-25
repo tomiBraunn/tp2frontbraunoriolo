@@ -23,33 +23,39 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white shadow-sm border-b">
-      <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg text-indigo-600">
-          Proyectos
+    <nav className="bg-paper-surface border-b border-paper-border sticky top-0 z-50">
+      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+        <Link href="/" className="font-[family-name:var(--font-display)] font-bold text-lg text-paper-primary tracking-tight">
+          Tinta
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <Link href="/polls" className="text-sm text-paper-muted hover:text-paper-primary transition-colors px-3 py-1.5">
+            Explorar
+          </Link>
           {user ? (
             <>
-              <Link href="/dashboard" className="text-sm text-gray-600 hover:text-gray-900">
+              <Link href="/dashboard" className="text-sm text-paper-muted hover:text-paper-primary transition-colors px-3 py-1.5">
                 Dashboard
               </Link>
-              <Link href="/projects" className="text-sm text-gray-600 hover:text-gray-900">
-                Proyectos
+              <Link
+                href="/polls/create"
+                className="text-sm bg-paper-primary text-paper-surface px-4 py-1.5 hover:opacity-80 transition-opacity"
+              >
+                + Nueva
               </Link>
-              <Link href="/projects/create" className="text-sm bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700">
-                Nuevo
-              </Link>
-              <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700">
-                Cerrar sesión
+              <button onClick={handleLogout} className="text-sm text-paper-muted hover:text-paper-danger transition-colors px-3 py-1.5">
+                Salir
               </button>
             </>
           ) : (
             <>
-              <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900">
-                Iniciar sesión
+              <Link href="/login" className="text-sm text-paper-muted hover:text-paper-primary transition-colors px-3 py-1.5">
+                Ingresar
               </Link>
-              <Link href="/register" className="text-sm bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700">
+              <Link
+                href="/register"
+                className="text-sm bg-paper-primary text-paper-surface px-4 py-1.5 hover:opacity-80 transition-opacity"
+              >
                 Registrarse
               </Link>
             </>

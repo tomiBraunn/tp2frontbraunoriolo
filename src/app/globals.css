@@ -1,6 +1,41 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-primary: "Source Serif 4", Georgia, serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-mono: "PT Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  --color-paper-primary: #111111;
+  --color-paper-secondary: #8B5CF6;
+  --color-paper-success: #16A34A;
+  --color-paper-warning: #D97706;
+  --color-paper-danger: #DC2626;
+  --color-paper-surface: #FFFFFF;
+  --color-paper-text: #111827;
+  --color-paper-muted: #6B7280;
+  --color-paper-border: #E5E7EB;
+  --color-paper-subtle: #F9FAFB;
+}
+
 body {
-  background: #f9fafb;
-  color: #171717;
+  font-family: var(--font-primary);
+  color: var(--color-paper-text);
+  background-color: var(--color-paper-subtle);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(0, 0, 0, 0.015) 40px,
+      rgba(0, 0, 0, 0.015) 41px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(0, 0, 0, 0.015) 40px,
+      rgba(0, 0, 0, 0.015) 41px
+    );
 }
