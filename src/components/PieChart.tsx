@@ -1,4 +1,5 @@
 import type { PollOption } from '@/types'
+import { describeArc } from '@/lib/chartUtils'
 
 const COLORS = ['#111111', '#8B5CF6', '#16A34A', '#D97706', '#DC2626', '#6B7280', '#111827', '#E5E7EB']
 
@@ -14,32 +15,26 @@ export default function PieChart({ options, totalVotes }: { options: PollOption[
 
   const sorted = [...options].sort((a, b) => (b.vote_count || 0) - (a.vote_count || 0))
 
-  let cumulative = 0
-  const arcs = sorted.map((opt, i) => {
-    const value = opt.vote_count || 0
-    const percentage = (value / totalVotes) * 100
-    const startAngle = (cumulative / totalVotes) * 360
-    cumulative += value
-    const endAngle = (cumulative / totalVotes) * 360
-    return { ...opt, percentage, startAngle, endAngle, color: COLORS[i % COLORS.length] }
-  })
+  const arcs = sorted.reduce<
+    { cumulative: number; items: Array<PollOption & { percentage: number; startAngle: number; endAngle: number; color: string }> }
+  >(
+    (acc, opt, i) => {
+      const value = opt.vote_count || 0
+      const percentage = (value / totalVotes) * 100
+      const startAngle = (acc.cumulative / totalVotes) * 360
+      const cumulative = acc.cumulative + value
+      const endAngle = (cumulative / totalVotes) * 360
+      return {
+        cumulative,
+        items: [...acc.items, { ...opt, percentage, startAngle, endAngle, color: COLORS[i % COLORS.length] }],
+      }
+    },
+    { cumulative: 0, items: [] }
+  ).items
 
   const radius = 110
   const center = 130
   const svgSize = center * 2
-
-  function polarToCartesian(cx: number, cy: number, r: number, angleDeg: number) {
-    const rad = ((angleDeg - 90) * Math.PI) / 180
-    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) }
-  }
-
-  function describeArc(cx: number, cy: number, r: number, start: number, end: number) {
-    if (end - start >= 360) return `M ${cx - r} ${cy} A ${r} ${r} 0 1 1 ${cx - r} ${cy - 0.01}`
-    const startP = polarToCartesian(cx, cy, r, start)
-    const endP = polarToCartesian(cx, cy, r, end)
-    const largeArc = end - start > 180 ? 1 : 0
-    return `M ${cx} ${cy} L ${startP.x} ${startP.y} A ${r} ${r} 0 ${largeArc} 1 ${endP.x} ${endP.y} Z`
-  }
 
   return (
     <div className="flex flex-col md:flex-row items-center gap-8">

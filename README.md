@@ -24,9 +24,19 @@ Aplicación serverless para gestión de proyectos construida con **Next.js**, **
 ```
 main              → Rama principal (funcional y desplegada)
 develop           → Rama de integración
-alumno1/frontend  → Geraldine - Frontend (páginas y componentes)
-alumno2/backend   → Tomas - Backend (acciones server, Supabase)
+feature/nombre    → Nuevas funcionalidades
+fix/nombre        → Correcciones de bugs
 ```
+
+### Convención de branches
+
+| Tipo | Formato | Ejemplo |
+|------|---------|---------|
+| Feature | `feature/nombre-feature` | `feature/autenticacion` |
+| Fix | `fix/nombre-bug` | `fix/error-login` |
+
+Ningún cambio se mergea directo a `main` ni a `develop`. Todo pasa por un Pull
+Request con al menos una revisión del otro integrante del equipo.
 
 ## Autores
 
@@ -45,6 +55,37 @@ npm run dev
 ```
 
 Abrir [http://localhost:3000](http://localhost:3000).
+
+## Scripts
+
+```bash
+npm run dev        # Desarrollo local
+npm run build      # Build de producción
+npm run lint       # ESLint
+npm test           # Tests unitarios (Vitest)
+npm run test:e2e   # Tests E2E (Playwright)
+npm run test:all   # Unitarios + E2E
+```
+
+## CI/CD
+
+Pipeline en GitHub Actions: `lint` → `test` → `build` → `deploy`
+
+Cada push o PR a `main` ejecuta el pipeline. El deploy a producción solo ocurre
+si todos los pasos anteriores pasan.
+
+### Secrets requeridas en GitHub
+
+| Secret | Descripción |
+|--------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | URL del proyecto Supabase |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clave anónima de Supabase |
+| `VERCEL_TOKEN` | Token de Vercel para deploy |
+
+## URL de producción
+
+<!-- TODO: actualizar con la URL real de Vercel -->
+`https://<proyecto>.vercel.app`
 
 ## Despliegue
 

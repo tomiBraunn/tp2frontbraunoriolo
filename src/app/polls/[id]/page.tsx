@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabaseServer'
 import { notFound } from 'next/navigation'
 import PollView from './PollView'
+import type { PollOption } from '@/types'
 
 export default async function PollPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -21,7 +22,7 @@ export default async function PollPage({ params }: { params: Promise<{ id: strin
   const counts: Record<string, number> = {}
   votes?.forEach((v) => { counts[v.option_id] = (counts[v.option_id] || 0) + 1 })
 
-  const optionsWithCounts = poll.options.map((opt: any) => ({
+  const optionsWithCounts = (poll.options as PollOption[]).map((opt) => ({
     ...opt,
     vote_count: counts[opt.id] || 0,
   }))

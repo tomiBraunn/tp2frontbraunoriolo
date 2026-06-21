@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabaseServer'
 import PollCard from '@/components/PollCard'
-import type { Poll } from '@/types'
+import type { Poll, PollOption } from '@/types'
 
 export default async function PollsPage() {
   const supabase = await createClient()
@@ -11,10 +11,10 @@ export default async function PollsPage() {
     .eq('is_active', true)
     .order('created_at', { ascending: false })
 
-  const pollsWithCounts: Poll[] = (polls || []).map((poll: any) => ({
+  const pollsWithCounts: Poll[] = (polls || []).map((poll) => ({
     ...poll,
-    options: poll.options?.map((opt: any) => ({ ...opt, vote_count: 0 })),
-  }))
+    options: ((poll.options as PollOption[]) || []).map((opt) => ({ ...opt, vote_count: 0 })),
+  })) as unknown as Poll[]
 
   return (
     <div className="max-w-2xl mx-auto mt-8 px-6 pb-16">

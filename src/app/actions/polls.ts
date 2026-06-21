@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabaseServer'
+import { parseOptions, validatePollInput, getUsername } from '@/lib/pollUtils'
 
 export async function createPoll(prevState: { error: string }, formData: FormData) {
   const supabase = await createClient()
@@ -24,7 +25,7 @@ export async function createPoll(prevState: { error: string }, formData: FormDat
       .from('profiles')
       .insert({
         id: user.id,
-        username: user.user_metadata?.username || user.email?.split('@')[0] || 'user'
+        username: getUsername(user.email, user.user_metadata?.username)
       })
 
     if (profileError) {
@@ -37,15 +38,10 @@ export async function createPoll(prevState: { error: string }, formData: FormDat
   const optionsRaw = formData.get('options') as string
   const allowMultiple = formData.get('allowMultiple') === 'on'
 
-  if (!title || !optionsRaw) {
-    return { error: 'Title and options are required' }
-  }
+  const validationError = validatePollInput(title, optionsRaw)
+  if (validationError) return { error: validationError }
 
-  const options = optionsRaw.split(',').map(o => o.trim()).filter(Boolean)
-
-  if (options.length < 2) {
-    return { error: 'At least 2 options are required' }
-  }
+  const options = parseOptions(optionsRaw)
 
   const { data: poll, error: pollError } = await supabase
     .from('polls')
